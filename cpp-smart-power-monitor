@@ -1,0 +1,45 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+    double voltage, current, hours;
+    double power, energy;
+
+    cout << "Enter voltage (V): ";
+    cin >> voltage;
+
+    cout << "Enter current (A): ";
+    cin >> current;
+
+    cout << "Enter operating time (hours): ";
+    cin >> hours;
+
+    power = voltage * current;       // Watts
+    energy = power * hours;          // Watt-hours
+
+    cout << fixed << setprecision(2);
+    cout << "\nPower Consumption: " << power << " W" << endl;
+    cout << "Energy Used: " << energy << " Wh" << endl;
+
+    if (power > 1000) {
+        cout << "Status: High power consumption!" << endl;
+    } else {
+        cout << "Status: Normal power consumption." << endl;
+    }
+
+    ofstream file("data.txt", ios::app);
+    if (file.is_open()) {
+        file << "Voltage: " << voltage << " V, "
+             << "Current: " << current << " A, "
+             << "Power: " << power << " W, "
+             << "Energy: " << energy << " Wh\n";
+        file.close();
+    } else {
+        cout << "Error saving data to file." << endl;
+    }
+
+    return 0;
+}
